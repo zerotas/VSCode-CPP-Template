@@ -25,6 +25,5 @@
         "type_traits": "cpp",
         "typeinfo": "cpp"
     },
-    "editor.fontSize": 16,
     "C_Cpp.intelliSenseEngineFallback": "Enabled"
 }
