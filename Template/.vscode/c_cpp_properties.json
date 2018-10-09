@@ -4,9 +4,7 @@
             "name": "Win32",
             "intelliSenseMode": "gcc-x64",
             "includePath": [
-                "${workspaceFolder}/src/**",
-                "${workspaceFolder}/src/include",
-                "${workspaceFolder}/src/include2"
+                "${workspaceFolder}/src/**"
             ],
             "forcedInclude": [],
             "defines": [
