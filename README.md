@@ -19,8 +19,10 @@ VSCode中C++项目的通用工程模板，方便快捷的实现编译、调试�
 * c_cpp_properties.json中的 compilerPath 配置为g++.exe的绝对路径
 * launch.json中的 miDebuggerPath 配置为g++.exe的绝对路径
 
-
 ## 使用
+### 开始新项目
+复制Template目录，并将Template修改为工程名称即可
+
 ### 编译、调试和运行
 * Ctrl + Shift + R 选择task执行
     tasks.json中共配置了4个task，分别为：
