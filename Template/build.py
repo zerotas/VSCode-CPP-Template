@@ -1,58 +1,70 @@
 ﻿import os
 import sys
+import shutil
 
-# list all include paths and cpp files
-def list_all_files(rootdir, includeArray, cppArray):
-    includeArray.append(rootdir)
+buildType = sys.argv[1]
+projName = sys.argv[2]
 
-    list = os.listdir(rootdir)
-    for _, value in enumerate(list):
-        path = os.path.join(rootdir, value)
-        if os.path.isdir(path) and not path.startswith("."):
-            list_all_files(path, includeArray, cppArray)
-        elif os.path.isfile(path) and path.endswith(".cpp"):
-            cppArray.append(path)
+def clean():
+    print(">>>>>>>>>>>>>>>>>>>> Begin cleaning >>>>>>>>>>>>>>>>>>>>")
 
-PROJECT_ROOT = os.getcwd()
-PROJECT_ROOT = eval(repr(PROJECT_ROOT).replace('\\\\', '/'))
-SRC_DIR = PROJECT_ROOT + "/src"
+    # 删除build目录
+    shutil.rmtree(os.getcwd() + "\\build")
 
-includeArray = []
-cppArray = []
-list_all_files(SRC_DIR, includeArray, cppArray)
+    # 删除debug exe
+    debugExePath = "bin/debug/" + projName + ".exe"
+    if os.path.exists(debugExePath):
+        os.remove(debugExePath)
 
-# concat include string
-includeStr = ""
-for index,value in enumerate(includeArray):
-    includeStr += " -I " + value + " "
+    # 删除release exe
+    releaseExePath = "bin/release/" + projName + ".exe"
+    if os.path.exists(releaseExePath):
+        os.remove(releaseExePath)
+    
+    # 创建build目录
+    os.mkdir("build")
 
-includeStr = eval(repr(includeStr).replace('\\\\', '/'))
+    print("\n<<<<<<<<<<<<<<<<<<<< End cleaning <<<<<<<<<<<<<<<<<<<<")
 
-# concat cpp string
-cppStr = ""
-for index,value in enumerate(cppArray):
-    cppStr += " " + value + " "
+def compile():
+    print(">>>>>>>>>>>>>>>>>>>> Begin compiling >>>>>>>>>>>>>>>>>>>>")
+    print("Build Type is " + buildType)
 
-cppStr = eval(repr(cppStr).replace('\\\\', '/'))
+    # 判断debug还是release
+    buildTypeString = "-DBUILD_TYPE=debug"
+    if buildType <> "debug":
+        # release之前执行clean()
+        # clean()
+        buildTypeString = "-DBUILD_TYPE=release"
 
-# compile
-print("Begin compiling with 'g++ -g -std=c++11'")
+    # 获取工程名称
+    projNameString = "-DPROJ_NAME=" + projName
 
-print("\nPROJECT_ROOT: " + PROJECT_ROOT)
-print("SRC_DIR: " + SRC_DIR)
+    # 切换工作区到build目录下
+    print("\nchange work dir to build\n")
+    os.chdir("build")
 
-cmd = ""
-for i in range(len(sys.argv) - 1):
-    cmd += sys.argv[i + 1]
+    # cmake
+    print("Begin camke...")
+    cmd = 'cmake .. -G "MinGW Makefiles" '
+    cmd += buildTypeString + " "
+    cmd += projNameString + " "
+    os.system(cmd)
 
-cmd += includeStr
-cmd += cppStr
-print("\ncompile command: " + cmd)
+    # make
+    print("\nBegin make...")
+    os.system("make")
 
-result = os.system(cmd)
-if result == 0:
-    print("\ncompile successfully")
+    print("\n<<<<<<<<<<<<<<<<<<<< End compiling <<<<<<<<<<<<<<<<<<<<")
+
+# 如果不存在build目录，则创建
+if not os.path.exists("build"):
+    os.mkdir("build")
+
+# 判断是编译还是clean
+if buildType == "clean":
+    # 执行清理
+    clean()
 else:
-    print("\n>>>>>>>compile failed")
-
-print("\nEnd compiling")
+    # 执行编译
+    compile()
