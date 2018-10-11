@@ -1,10 +1,14 @@
 # VSCode-CPP-Template
-VSCode中C++项目的通用工程模板，方便快捷的实现编译、调试功能  
-使用GCC编译器
+VSCode开发C++项目的通用工程模板，方便快捷的实现编译、调试功能  
+使用GCC编译器  
+使用CMake配置编译
+
+该模板适用于使用VSCode开发C++跨平台项目  
+如果项目只是基于Windows平台，那么建议使用Visual Studio
 
 ## 配置
 ### 软件安装
-* MinGW-W64 (适用于Windows用户，Linux用户无视)  
+* MinGW-W64  
     在Windows系统中使用GCC作为编译器，因此需要MinGW-W64
 
 * CMake
@@ -45,6 +49,14 @@ VSCode中C++项目的通用工程模板，方便快捷的实现编译、调试�
 
 * F5调试  
     在调试前，会自动执行build(debug)的task，生成最新的debug版本
+
+### 关于build.py文件
+目前网上找到的介绍，都是在tasks.json中直接配置编译指令  
+但是编译过程需要各种设置，以及头文件搜索路径、第三方库、第三方库搜索路径  
+这些信息如果全部在tasks.json中填写，一则导致tasks.json文件太大不方便，二是无法执行各种复杂的逻辑判断，毕竟tasks.json只是一个json文件
+
+因此，我们添加了一个build.py脚本来执行这些配置和逻辑判断，而在tasks.json中只是简单的调用该脚本
+在build.py中，我们会执行cmake和make命令来完成编译
 
 ### 关于.vscode目录
 该目录下是C/C++插件的配置文件，共有四个文件  
