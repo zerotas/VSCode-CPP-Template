@@ -62,7 +62,7 @@ VSCode开发C++项目的通用工程模板，方便快捷的实现编译、调�
 在build.py中，我们会执行cmake和make命令来完成编译
 
 ### 关于.vscode目录
-该目录下是C/C++插件的配置文件，共有四个文件  
+该目录下是VSCode的配置文件，有的是VSCode本身使用，有的是插件使用，共有四个文件  
 
 * c_cpp_properties.json  
   该配置文件用于设置代码显示的语法检查、代码跳转  
@@ -87,7 +87,7 @@ VSCode开发C++项目的通用工程模板，方便快捷的实现编译、调�
   
 
 * launch.json  
-  该配置文件用于设置调试相关的信息，其中最主要的字段是：
+  该配置文件为VSCode使用，用于配置调试相关的信息，其中最主要的字段是：
   ```
   "program": "${workspaceFolder}/bin/debug/${workspaceRootFolderName}.exe",
   "miDebuggerPath":"c:/MinGW/bin/gdb.exe",     
@@ -98,4 +98,4 @@ VSCode开发C++项目的通用工程模板，方便快捷的实现编译、调�
   一般配置信息，无须赘述
 
 * tasks.json  
-  该配置文件中指定了5个task，参考上面的"编译、调试和运行"
+  该配置文件为VSCode使用，我们配置了5个task，参考上面的"编译、调试和运行"
