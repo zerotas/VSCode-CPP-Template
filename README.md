@@ -18,8 +18,12 @@ VSCode开发C++项目的通用工程模板，方便快捷的实现编译、调�
     编写build.py来配置并执行cmake命令
 
 ### VSCode插件安装
-* C/C++
-* Include Autocomplete
+* C/C++  
+  配置文件为.vscode目录下的tasks.json, launch.json和setting.json  
+
+* Include Autocomplete  
+   配置文件为.vscode/c_cpp_properties.json  
+
 * CMake  
   该插件只用于为编写CMakeList.txt提供便利，包括高亮显示、函数提示等  
   我们并不适用该插件来执行cmake命令
